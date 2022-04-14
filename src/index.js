@@ -3,10 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import RouterScreen from './routes/index';
+<script src="https://kit.fontawesome.com/f20d460fd9.js" crassarigin="anonymou"></script>
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <RouterScreen />
   </React.StrictMode>,
   document.getElementById('root')
 );
