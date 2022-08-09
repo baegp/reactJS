@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 export default function CreatePost({ item, onSubmit, listBrand }) {
     const [openAddProduct, setOpenAddProduct] = useState(false);
-    const [valueState,setValueState] = useState("")
+    const [valueState, setValueState] = useState("")
     const handleShowAddProduct = () => {
         setOpenAddProduct(true)
     }
@@ -15,10 +15,10 @@ export default function CreatePost({ item, onSubmit, listBrand }) {
 
     // 
     const [post, setPort] = useState(item || {
-        images: '',
+        image: '',
         name: '',
         price: '',
-        category:""
+        categoryId: 0
     })
 
     const onChangeText = (event) => {
@@ -27,20 +27,20 @@ export default function CreatePost({ item, onSubmit, listBrand }) {
     }
 
     const onClickButton = (event) => {
-        console.log('san pham',post);
+        console.log('san pham', post);
         onSubmit(post)
         setOpenAddProduct(false)
     }
 
     const handler = (event) => {
-       
         const value = event.target.value
         console.log(value);
-        setPort({...post,category:(value)})
+        setPort({ ...post, categoryId: (value) })
         setValueState(value)
         console.log(value);
     }
 
+    console.log("listbrand", listBrand);
     return (
         <div>
             <section className="them-sp-fake">
@@ -49,24 +49,29 @@ export default function CreatePost({ item, onSubmit, listBrand }) {
                         <h1>Danh sách sản phẩm</h1>
                         <button onClick={handleShowAddProduct} className="btn btnPrimary">Thêm sản phẩm</button>
                     </div>
+                    <div style={{marginTop: "-50px"}} className="content-them-sp">
+                        <Link to='/categories'><h1>Danh muc sản phẩm</h1></Link>
+                    </div>
+                    <div style={{marginTop: "-50px"}} className="content-them-sp">
+                        <Link to='/accounts'><h1>Account</h1></Link>
+                    </div>
                 </div>
             </section>
 
-            <section style={{marginTop:'10px'}} className="them-sp-fake">
+            {/* <section style={{ marginTop: '10px' }} className="them-sp-fake">
                 <div className="container-sp">
                     <div style={{ display: '' }} className="content-them-sp">
                         <Link to='/categories'><h1>Danh muc sản phẩm</h1></Link>
 
-                        {/* <Link to='/categories' className="btn btnPrimary">Danh muc sản phẩm</Link> */}
                     </div>
                 </div>
-            </section>
+            </section> */}
             {openAddProduct && (<div id="pop-up-them-sp">
                 <div id="out-them-sp" className="them-sp">
                     <h1>Nhập thông tin sản phẩm</h1>
                     <div className="form-group">
                         <label htmlFor="img">Link hình ảnh</label>
-                        <input onChange={onChangeText} placeholder="Nhập link hình ảnh" type="url" name="images" id="hinh-anh" />
+                        <input onChange={onChangeText} placeholder="Nhập link hình ảnh" type="url" name="image" id="hinh-anh" />
                         <span className="form-message" />
                     </div>
                     <div className="form-group">
@@ -81,12 +86,11 @@ export default function CreatePost({ item, onSubmit, listBrand }) {
                     </div>
                     <div className="form-group">
                         <label htmlFor="hang">Loai sản phẩm</label>
-                        {/* <input onChange={onChangeText} placeholder="Nhập loai sản phẩm" type="number" name="__v" id="hang" /> */}
 
-                        <select  onChange={handler} style={{ display: 'block' }} value={valueState}>
+                        <select onChange={handler} style={{ display: 'block' }} value={valueState}>
                             {
                                 listBrand.map((item, index) => (
-                                    <option value={item._id}>
+                                    <option value={item.id}>
                                         {item.name}
                                     </option>
                                 ))

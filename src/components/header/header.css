@@ -43,8 +43,12 @@ body{
     display: inline-block;
 }
 
-.menu-level-2{
+/* .menu-level-2{
     display: none;
+} */
+
+.item-menu-level-1:hover .menu-level-2{
+    display: block;
 }
 
 .item-menu-level-1{

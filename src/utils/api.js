@@ -9,7 +9,7 @@ export const getAPI = async (url) => {
 };
 
 export const postAPI = async (url) => {
-  const response = await axios.post(url).catch((err) => console.error(err));
+  const response = await axios.post(url,{}).catch((err) => console.error(err));
   return response;
 };
 

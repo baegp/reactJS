@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './Cart.css'
 import { formatMoney } from './../../abc';
+import { toast } from 'react-toastify';
 export default function Cart() {
     const [first, setfirst] = useState([])
     const [loading, setloading] = useState("")
@@ -38,6 +39,10 @@ export default function Cart() {
         setloadDelete(loadDelete + 1)
         localStorage.setItem('Cart', JSON.stringify(arr));
         console.log('xoa');
+        toast.success('Xoa thanh cong', {
+            position: 'bottom-left',
+            autoClose: 3000
+        })
     }
 
     return (
@@ -72,7 +77,7 @@ export default function Cart() {
                             <div className="san-pham-mua">
                                 <div className="item-sp">
                                     <div className="anh-san-pham">
-                                        <img src={item.images} alt="" />
+                                        <img src={item.image} alt="" />
 
                                     </div>
                                 </div>
@@ -83,7 +88,7 @@ export default function Cart() {
                                     <h3 id="don-gia">{formatMoney(item.price)}</h3>
                                 </div>
                                 <div className="item-sp">
-                                    <input onChange={e => onQuantity(e.target.value, item.id)} defaultValue={item.quantity} type="number" name id="so-luong-${i}" min={1} />
+                                    <input onChange={e => onQuantity(e.target.value, item.id)} defaultValue={item.quantity} type="number" min={1}  max={10}/>
                                 </div>
                                 <div className="item-sp ">
                                     <h3>{formatMoney(Number(item.price) * Number(item.quantity))}</h3>

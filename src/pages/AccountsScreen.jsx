@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import PostCategory from '../components/category/PostCategory'
-import { getAPI } from '../utils/api';
-import { API_PRODUCT_LOCAL } from '../utils/const';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import ListPostCategory from './../components/category/ListPostCategory';
 import EditCategoory from '../components/category/EditCategoory';
 import CreateCategory from './../components/category/CreateCategory';
-import { API_CATEGORIES } from './../utils/const';
-import Header from '../components/header/Header';
+import { API_USER_REGISTER, API_USER_UPDATE } from './../utils/const';
+import { getAPI } from '../utils/api';
+import EditAccount from './../components/accounts/EditAccount';
+import ListAccounts from './../components/accounts/ListAccounts';
 
-function CategoryScreen() {
+export default function AccountsScreen() {
     const [data, setData] = useState([]);
     const [selectedPost, setSelectedPost] = useState(undefined);
     const [openShowEdit, setOpenShowEdit] = useState(true);
@@ -19,15 +18,15 @@ function CategoryScreen() {
     }, [])
 
     const fetchAPI = async () => {
-        const result = await getAPI(API_CATEGORIES);
+        const result = await getAPI(API_USER_REGISTER);
         if (result) {
             setData(result)
         }
-        console.log('categories:',result);
+        console.log('categories:', result);
     }
 
     const onSubmit = async (data) => {
-        const response = await axios.post(API_CATEGORIES, data)
+        const response = await axios.post(API_USER_REGISTER, data)
         if (response && response.status === 200) {
             toast.success('Them thanh cong', {
                 position: 'bottom-left',
@@ -45,7 +44,7 @@ function CategoryScreen() {
 
     const onSubmitEdit = async (data) => {
         console.log(data);
-        const response = await axios.post(API_CATEGORIES, data)
+        const response = await axios.post(API_USER_UPDATE, data)
         if (response && response.status === 200) {
             toast.success('Sua thanh cong', {
                 position: 'bottom-left',
@@ -56,7 +55,7 @@ function CategoryScreen() {
     }
 
     const onRemove = async (id) => {
-        const response = await axios.delete(API_CATEGORIES + `/${id}`)
+        const response = await axios.delete(API_USER_REGISTER + `/${id}`)
         if (response && response.status === 200) {
             toast.success('Xoa thanh cong', {
                 position: 'bottom-left',
@@ -67,11 +66,8 @@ function CategoryScreen() {
     }
     return (
         <div>
-            <CreateCategory onSubmit={onSubmit} />
-            {selectedPost && <EditCategoory item={selectedPost} onSubmit={onSubmitEdit} openShowEdit={openShowEdit} setOpenShowEdit={setOpenShowEdit} />}
-            <ListPostCategory onRemove={onRemove} onEdit={onEdit} post={data}/>
+            {selectedPost && <EditAccount item={selectedPost} onSubmit={onSubmitEdit} openShowEdit={openShowEdit} setOpenShowEdit={setOpenShowEdit} />}
+            <ListAccounts onRemove={onRemove} onEdit={onEdit} post={data} />
         </div>
     )
 }
-
-export default CategoryScreen

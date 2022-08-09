@@ -9,7 +9,7 @@ import axios from 'axios';
 export default function Login() {
     const navigate = useNavigate();
     const [data, setData] = useState({
-        username: "",
+        email: "",
         password: ""
     });
 
@@ -22,21 +22,21 @@ export default function Login() {
             toast.success('dang nhap thanh cong', {
                 position: 'bottom-left',
                 autoClose: 3000
-            })  
+            })
             navigate('/')
 
-        }else if(reponse && reponse.status === 403){
+        } else if (reponse && reponse.status === 403) {
             toast.warning('tai khoan hoac mat khau khong chinh xac', {
                 position: 'bottom-left',
                 autoClose: 3000
-            })  
+            })
         }
     }
 
     return (
         <div>
             <form>
-                <div className="center-container">
+                <div style={{ marginBottom: "-170px" }} className="center-container">
                     {/*header*/}
                     <div className="header-w3l">
                         <h1>Login</h1>
@@ -48,20 +48,31 @@ export default function Login() {
                                 <h2>Login </h2>
                             </div>
                             <div className="pom-agile">
-                                <input onChange={e => setData({ ...data, username: e.target.value })} placeholder="E-mail" name="Name" className="user" type="email" required />
+                                <input onChange={e => setData({ ...data, email: e.target.value })} placeholder="E-mail" name="Name" className="user" type="email" required />
                                 <span className="icon1"><i className="fa fa-user" aria-hidden="true" /></span>
                             </div>
-                            <div className="pom-agile">
+                            <div style={{ marginTop: "-5px" }} className="pom-agile">
                                 <input onChange={e => setData({ ...data, password: e.target.value })} placeholder="Password" name="Password" className="pass" type="password" required />
                                 <span className="icon2"><i className="fa fa-unlock" aria-hidden="true" /></span>
                             </div>
+
                             <Link to="/register">
-                                <a href="#">create an accout</a>
+                                <a style={{
+                                    color: "white",
+                                    "&:hover": {
+                                        color: "#333"
+                                    }
+                                }} href="#">Create an accout?</a>
                             </Link>
-                            <div className="sub-w3l">
+                            <div>
+                                <Link to="/forgetpassword">
+                                    <a style={{ color: "white" }} href="#">Forget password?</a>
+                                </Link>
+                            </div>
+                            <div style={{marginTop: "-20px"}} className="sub-w3l">
                                 <h6><a href="#"></a></h6>
                                 <div className="right-w3l">
-                                    <input type="submit" onClick={(e) => onLogin(e)} defaultValue="Login" /> 
+                                    <input type="submit" onClick={(e) => onLogin(e)} defaultValue="Login" />
                                 </div>
                             </div>
                         </div>

@@ -12,20 +12,29 @@ export default function ProductsScreen() {
         fetchAPI();
 
     }, [])
-    const fetchAPI = async () => {
-        const result = await getAPI(API_PRODUCT_LOCAL);
-        // check dữ dữ liệu trước khi lấy
-        if (result) {
-            setData(result)
-        }
-    }
+    // const fetchAPI = async () => {
+    //     const result = await getAPI(API_PRODUCT_LOCAL);
+    //     // check dữ dữ liệu trước khi lấy
+    //     if (result) {
+    //         setData(result)
+    //     }
+    // }
 
+
+    const fetchAPI = async () => {
+        const result = await axios.post(API_PRODUCT_LOCAL + "/filter", {});
+
+        if (result) {
+            setData(result.data)
+        }
+        console.log('result', result.data);
+    }
 
 
     const onSearch = async (name) => {
         console.log(name);
-        const data = await axios.post(API_SEARCH_PRODUCT, { name });
-        setData(data.data);
+        const result = await axios.get(API_SEARCH_PRODUCT + name);
+        setData(result.data);
     };
 
     return (
@@ -33,7 +42,7 @@ export default function ProductsScreen() {
         <div>
             <HomePage onSearch={onSearch} />
             {/* <CreatePost/>ee */}
-            {data.length == 0 ? <div>Khong co san pham</div> : <ListProducts post={data} />}
+            {data.length == 0 ? <div style={{textAlign:"center", fontSize:"24px", fontWeight:"450"}}>Không có sản phẩm</div> : <ListProducts post={data} />}
 
             <section className="contact">
                 <div className="container-contact">

@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './Category.css'
 
-function EditCategoory({ onSubmit, item }) {
-    const [openShowEdit, setOpenShowEdit] = useState(true);
-
+function EditCategoory({ onSubmit, item, openShowEdit, setOpenShowEdit }) {
     const clickCloseEdit = () => {
         setOpenShowEdit(false)
     }
@@ -23,7 +21,7 @@ function EditCategoory({ onSubmit, item }) {
     }
 
     const onClickButton = (event) => {
-        onSubmit({ ...item, ...post, id: item._id })
+        onSubmit({ ...item, ...post, id: item.id })
         setOpenShowEdit(false)
     }
     return (

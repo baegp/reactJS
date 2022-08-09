@@ -1,8 +1,12 @@
 import React, { useState } from 'react'
 import './Category.css'
-
+import { useForm } from "react-hook-form";
+import { useFormik } from 'formik';
+import * as yup from "yup";
 function CreateCategory({ item, onSubmit }) {
     const [openAddProduct, setOpenAddProduct] = useState(false);
+    const [isDisabled, setDisabled] = useState(false);
+
     const handleShowAddProduct = () => {
         setOpenAddProduct(true)
     }
@@ -26,6 +30,19 @@ function CreateCategory({ item, onSubmit }) {
         setOpenAddProduct(false)
     }
 
+    const formik = useFormik({
+        initialValues: {
+            ...post
+        },
+        validationSchema: yup.object({
+            name: yup.string().required("Name category is required")
+        }),
+        onSubmit: () => {
+            // onsubmit(formik.values)
+        },
+    });
+
+
     return (
         <div>
             <section className="them-sp-fake">
@@ -37,22 +54,36 @@ function CreateCategory({ item, onSubmit }) {
                 </div>
             </section>
 
-            {openAddProduct && (<div id="pop-up-them-sp">
-                <div id="out-them-sp" className="them-sp">
-                    <h1>Nhập thông tin danh muc</h1>
+            {openAddProduct && (
+                <form onSubmit={formik.handleSubmit}>
 
-                    <div className="form-group">
-                        <label htmlFor="ten">Tên sản phẩm</label>
-                        <input onChange={onChangeText} placeholder="Nhập tên sản phẩm" type="text" name="name" id="ten-sp" />
-                        <span className="form-message" />
-                    </div>
+                    <div id="pop-up-them-sp">
+                        <div id="out-them-sp" className="them-sp">
+                            <h1>Nhập thông tin danh muc</h1>
 
-                    <div className="khoi-button">
-                        <button onClick={onClickButton} className="btn btnPrimary btn-left" >Tạo danh muc mới</button>
-                        <button onClick={handlCloseAddProduct} className="btn btnPrimary">Hủy</button>
+                            <div className="form-group">
+                                <label htmlFor="ten">Tên sản phẩm</label>
+                                <input
+                                    // value={formik.values.name}
+                                    // onBlur={formik.handleBlur}
+                                    // helperText={formik.touched.name && formik.errors.name}
+                                    // errors={Boolean(formik.touched.name && formik.errors.name)}
+                                    onChange={onChangeText}
+                                     placeholder="Nhập tên sản phẩm" type="text" name="name" id="ten-sp" />
+                            </div>
+
+                            <div className="khoi-button">
+                                <button disabled={formik.isSubmitting} onClick={onClickButton} className="btn btnPrimary btn-left" >Tạo danh muc mới</button>
+                                <button onClick={handlCloseAddProduct} className="btn btnPrimary">Hủy</button>
+                            </div>
+                        </div>
+
+                        {/* <input onChange={e => this.setState({ value: e.target.value })} value={this.state.value} />
+                    <button disabled={!this.state.value} /> */}
+
+
                     </div>
-                </div>
-            </div>
+                </form>
             )}
 
         </div>

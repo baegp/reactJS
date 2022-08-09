@@ -14,8 +14,11 @@ import {
 } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-import PostDetail from '../pages/PostDetail';
+import PostDetail from '../components/product-detail/PostDetail';
+import AccountsScreen from './../pages/AccountsScreen';
+import Page404 from '../components/page404/Page404';
+import ForgetPassword from '../components/login/ForgetPassword';
+import SignupForm from '../components/aTest/test';
 
 
 const RouterScreen = () => {
@@ -30,20 +33,26 @@ const RouterScreen = () => {
                 {/* <Route path="/" element={<Product />} /> */}
                 <Route path="/admin" element={<PostCreen />} />
                 <Route path="/categories" element={<CategoryScreen />} />
+                <Route path="/accounts" element={<AccountsScreen />} />
 
                 <Route path="/cart" element={<Cart />} />
+                <Route path="/forgetpassword" element={<ForgetPassword/>} />
+
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
 
                 <Route path="/product/:id" element={<PostDetail />} />
 
-                <Route path="*" element={<h1>page not found</h1>} />
+                <Route path="*" element={<Page404 />} />
+                <Route path="/test" element={<SignupForm/>} />
 
                 {/* <Route path="/createpost" element={<CreatePost />} /> */}
 
             </Routes>
             <Footer />
+
         </Router>
+
     )
 }
 

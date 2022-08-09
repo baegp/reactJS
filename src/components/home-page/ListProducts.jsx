@@ -6,7 +6,6 @@ export default function ListProducts({ post }) {
             {post && post.length && post.map((item, index) => {
                 return (
                     <div className='sanpham'>
-                       
                         <Product key={index} {...item} />
                     </div>
                 )

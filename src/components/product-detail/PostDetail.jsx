@@ -1,15 +1,15 @@
 import axios from 'axios';
-import { formatMoney } from '../abc';
+import { formatMoney } from '../../abc';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
-import Product from '../components/home-page/Product';
-import './../components/product-detail/productDetail.css'
-import { getAPI } from '../utils/api';
-import { API_PRODUCT_DETAIL, API_PRODUCT_LOCAL } from '../utils/const';
-import { addCart } from '../store/actions';
-import { useGlobalContext } from '../context/globalContext';
+import Product from '../home-page/Product';
+import './productDetail.css'
+import { getAPI } from '../../utils/api';
+import { API_PRODUCT_DETAIL, API_PRODUCT_LOCAL } from '../../utils/const';
+import { addCart } from '../../store/actions';
+import { useGlobalContext } from '../../context/globalContext';
 import { toast } from 'react-toastify';
-export default function PostDetail({ name, price, images, _id }) {
+export default function PostDetail() {
 
     // const [state, dispatch] = useGlobalContext()
 
@@ -48,7 +48,7 @@ export default function PostDetail({ name, price, images, _id }) {
             ListCart = JSON.parse(ListCarTemp)
         }
         for (let i = 0; i < ListCart.length; i++) {
-            if (ListCart[i].id == post._id) {
+            if (ListCart[i].id == post.id) {
                 ListCart[i].quantity = ListCart[i].quantity += count
                 localStorage.setItem('Cart', JSON.stringify(ListCart))
                 check = false
@@ -58,9 +58,9 @@ export default function PostDetail({ name, price, images, _id }) {
             let cartItem = {
                 quantity: count,
                 name: post.name,
-                images: post.images,
+                image: post.image,
                 price: post.price,
-                id: post._id
+                id: post.id
             }
             console.log(ListCart);
             ListCart.push(cartItem)
@@ -79,7 +79,7 @@ export default function PostDetail({ name, price, images, _id }) {
             <div className='productDetail'>
                 <div className='container-images-productDetail'>
                     <div className="imagesProductDetail">
-                        <img style={{width:'60%'}} src={post.images} alt="" />
+                        <img style={{ width: '60%' }} src={post.image} alt="" />
                     </div>
                 </div>
                 <div className='main-item-productDetail'>
